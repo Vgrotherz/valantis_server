@@ -1,0 +1,18 @@
+.flex {
+  display: flex;
+}
+
+.margin_1rem {
+  margin: 1rem;
+}
+
+.margin_top_1rem {
+  margin-top: 1rem;
+}
+
+.app {
+  color: #433e3e;
+  font-optical-sizing: auto;
+  font-style: normal;
+}
+

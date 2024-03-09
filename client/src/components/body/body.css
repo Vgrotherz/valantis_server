@@ -1,0 +1,44 @@
+.main {
+    flex-direction: column;
+    align-items: center;
+}
+
+.background_banner {
+    display: flex;
+    width: 100%;
+    overflow: hidden;
+    height: 19rem;
+    border: 1px solid #979797b3;
+    align-items: flex-end;
+    justify-content: center;
+}
+
+.background_banner img {
+    object-position: 0px 205px;
+    
+}
+
+
+.result {
+    padding: 1.5rem 0;
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;   
+}
+
+.main_span {
+    justify-content: center;
+    flex-direction: column;
+    align-items: center;
+    margin-top: 1rem;
+}
+
+.main_span h3 {
+    margin: 0.5rem 0;
+}
+
+@media only screen and (max-width:519px) {
+    .main_span h3, .main_span h1 {
+        margin-left: 16px;
+    }
+}
