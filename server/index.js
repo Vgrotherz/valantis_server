@@ -1,8 +1,17 @@
-const express = require('express')
-const app = express()
+const path = require('path');
+const express = require('express');
 
-app.use("/", (req, res) => {
-    res.send("Server is running.");
+const app = express();
+
+// Serve static files from the '../../../build' directory of your React application
+app.use(express.static(path.join(__dirname, './build')));
+
+// Route handler for the root URL
+app.get('/', (req, res) => {
+  res.sendFile(path.join(__dirname, './build', 'index.html'));
 });
 
-app.listen(5000, console.log("Server started on PORT 5000"))
+const PORT = process.env.PORT || 5000;
+app.listen(PORT, () => {
+  console.log(`Server is running on port ${PORT}`);
+});
