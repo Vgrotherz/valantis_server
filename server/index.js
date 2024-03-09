@@ -8,11 +8,11 @@ const app = express();
 app.use(cors());
 
 // Serve static files from the '../../../build' directory of your React application
-app.use(express.static(path.join(__dirname, '../client/build')));
+app.use(express.static(path.join(__dirname, './build')));
 
 // Route handler for the root URL
 app.get('/', (req, res) => {
-  res.sendFile(path.join(__dirname, '../client/build', 'index.html'));
+  res.sendFile(path.join(__dirname, './build', 'index.html'));
 });
 
 const PORT = process.env.PORT || 5000;
