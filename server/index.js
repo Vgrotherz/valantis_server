@@ -1,7 +1,11 @@
 const path = require('path');
 const express = require('express');
+const cors = require('cors');
 
 const app = express();
+
+// Use the cors middleware to allow requests from all origins
+app.use(cors());
 
 // Serve static files from the '../../../build' directory of your React application
 app.use(express.static(path.join(__dirname, '../client/build')));
