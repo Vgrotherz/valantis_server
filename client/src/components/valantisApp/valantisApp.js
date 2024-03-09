@@ -1,5 +1,5 @@
 import md5 from 'md5';
-const apiUrl = 'http://api.valantis.store:40000/';
+const apiUrl = 'https://valantis-server.vercel.app/'; 
 const apiPassword = 'Valantis';
 const retryTime = 1000; // время после которого будет повтор получения данных
 
