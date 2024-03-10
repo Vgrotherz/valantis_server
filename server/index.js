@@ -18,6 +18,14 @@ if (process.env.NODE_ENV === 'production') {
   app.use(express.static(path.join(__dirname, '../client/public')));
 }
 
+// Добавляем обработчик для OPTIONS запросов
+app.options('*', (req, res) => {
+  res.setHeader('Access-Control-Allow-Origin', 'https://valantis-client.vercel.app');
+  res.setHeader('Access-Control-Allow-Methods', 'GET, POST, PUT, DELETE');
+  res.setHeader('Access-Control-Allow-Headers', 'Content-Type, Authorization');
+  res.status(200).end();
+});
+
 app.get('/', (req, res) => {
   if (process.env.NODE_ENV === 'production') {
     res.sendFile(path.join(__dirname, '../client/build', 'index.html'));

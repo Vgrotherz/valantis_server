@@ -10,7 +10,7 @@ if (process.env.NODE_ENV === 'production') {
 // Функция для получения URL API с сервера
 const fetchApiUrl = async () => {
   try {
-    const response = await fetch('/api-url');
+    const response = await fetch(`${apiUrl}/api-url`);
     if (!response.ok) {
       throw new Error(`Failed to fetch API URL: ${response.status} ${response.statusText}`);
     }
@@ -29,7 +29,7 @@ const retryTime = 1000; // Время после которого будет п�
 export const getDataFromApi = async (action, params, retryCount = 0) => {
     const timestamp = new Date().toISOString().split('T')[0].replace(/-/g, '');
     try {
-        const response = await fetch(apiUrl, {
+        const response = await fetch(`${apiUrl}`, {
             method: "POST",
             body:JSON.stringify({
                 action,
