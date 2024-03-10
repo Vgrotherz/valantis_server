@@ -3,18 +3,22 @@ const express = require('express');
 
 const app = express();
 
+// Middleware для обработки CORS
+app.use((req, res, next) => {
+  res.setHeader('Access-Control-Allow-Origin', 'https://valantis-client.vercel.app');
+  res.setHeader('Access-Control-Allow-Methods', 'GET, POST, PUT, DELETE');
+  res.setHeader('Access-Control-Allow-Headers', 'Content-Type, Authorization');
+  next();
+});
+
 // Serve static files from the appropriate directory based on environment
 if (process.env.NODE_ENV === 'production') {
-  // Если в production, то будут раздаваться статические файлы из папки 'client/build'
   app.use(express.static(path.join(__dirname, '../client/build')));
 } else {
-  // В режиме разработки используем другую директорию, например 'client/public'
   app.use(express.static(path.join(__dirname, '../client/public')));
 }
 
-// Route handler for the root URL
 app.get('/', (req, res) => {
-  // Используем правильный путь к index.html в зависимости от окружения
   if (process.env.NODE_ENV === 'production') {
     res.sendFile(path.join(__dirname, '../client/build', 'index.html'));
   } else {
@@ -22,7 +26,6 @@ app.get('/', (req, res) => {
   }
 });
 
-// Установим константу для URL API
 const apiUrl = 'http://api.valantis.store:40000/';
 
 app.get('/api-url', (req, res) => {
