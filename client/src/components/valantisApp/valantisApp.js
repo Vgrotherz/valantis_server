@@ -4,7 +4,7 @@ let apiUrl = 'http://api.valantis.store:40000/'; // Исходная ссылк�
 
 // Проверяем, находимся ли мы в production-окружении
 if (process.env.NODE_ENV === 'production') {
-  apiUrl = 'https://valantis-server.vercel.app/'; // Заменяем ссылку для production
+  apiUrl = 'https://valantis-server.vercel.app'; // Заменяем ссылку для production
 }
 
 // Функция для получения URL API с сервера
