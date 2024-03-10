@@ -1,6 +1,11 @@
 import md5 from 'md5';
 
-let apiUrl = ''; // Для хранения URL API
+let apiUrl = 'http://api.valantis.store:40000/'; // Исходная ссылка
+
+// Проверяем, находимся ли мы в production-окружении
+if (process.env.NODE_ENV === 'production') {
+  apiUrl = 'https://valantis-server.vercel.app/'; // Заменяем ссылку для production
+}
 
 // Функция для получения URL API с сервера
 const fetchApiUrl = async () => {
