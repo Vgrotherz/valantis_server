@@ -1,34 +1,36 @@
 import md5 from 'md5';
-const apiUrl = 'https://cors-anywhere.herokuapp.com/https://valantis-server.vercel.app/'; 
+
+const apiUrl = 'https://valantis-server.vercel.app/';
 const apiPassword = 'Valantis';
-const retryTime = 1000; // время после которого будет повтор получения данных
+const retryTime = 1000;
 
 export const getDataFromApi = async (action, params, retryCount = 0) => {
-    const timestamp = new Date().toISOString().split('T')[0].replace(/-/g, '');
-    try {
-        const response = await fetch(apiUrl, {
-            method: "POST",
-            body:JSON.stringify({
-                action,
-                params
-            }),
-            headers: {
-                "Content-type" : "application/json",
-                "X-Auth" : md5(`${apiPassword}_${timestamp}`)
-            }
-        });
+  const timestamp = new Date().toISOString().split('T')[0].replace(/-/g, '');
+  try {
+    const response = await fetch(apiUrl, {
+      method: "POST",
+      body: JSON.stringify({
+        action,
+        params
+      }),
+      headers: {
+        "Content-type": "application/json",
+        "X-Auth": md5(`${apiPassword}_${timestamp}`)
+      }
+    });
 
-        if(!response.ok) {
-            throw new Error(`Failed to fetch: ${response.status} ${response.statusText}`);
-        }
-
-        const data = await response.json();
-        return data.result;
-    } catch (error) {
-        console.error("Error making API request:", error);
-
-        await new Promise(resolve => setTimeout(resolve, retryTime));
-        return getDataFromApi(action, params, retryCount + 1);
-        // throw error;
+    if (!response.ok) {
+      throw new Error(`Failed to fetch: ${response.status} ${response.statusText}`);
     }
-}
+
+    const data = await response.json();
+    return data.result;
+  } catch (error) {
+    console.error("Error making API request:", error);
+
+    await new Promise(resolve => setTimeout(resolve, retryTime));
+    return getDataFromApi(action, params, retryCount + 1);
+  }
+};
+
+export { apiUrl, apiPassword };
