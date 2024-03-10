@@ -37,7 +37,7 @@ app.get('/', (req, res) => {
 const apiUrl = 'http://api.valantis.store:40000/';
 
 app.get('/api-url', (req, res) => {
-  res.json({ apiUrl });
+  res.json({ apiUrl }).status(200);
 });
 
 const PORT = process.env.PORT || 5000;

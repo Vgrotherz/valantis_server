@@ -4,18 +4,20 @@ let apiUrl = 'http://api.valantis.store:40000/'; // Исходная ссылк�
 
 // Проверяем, находимся ли мы в production-окружении
 if (process.env.NODE_ENV === 'production') {
-  apiUrl = 'https://valantis-server.vercel.app'; // Заменяем ссылку для production
+  apiUrl = 'https://valantis-server.vercel.app/'; // Заменяем ссылку для production
 }
 
 // Функция для получения URL API с сервера
 const fetchApiUrl = async () => {
   try {
-    const response = await fetch(`${apiUrl}/api-url`);
+    const response = await fetch(`${apiUrl}api-url`, {
+        mode: 'no-cors'
+    });
     if (!response.ok) {
       throw new Error(`Failed to fetch API URL: ${response.status} ${response.statusText}`);
     }
-    const data = await response.json();
-    apiUrl = data.apiUrl; // Получаем URL API от сервера
+    const data = await response.text();
+    apiUrl = data.trim(); // Получаем URL API от сервера
   } catch (error) {
     console.error('Error fetching API URL:', error);
   }
