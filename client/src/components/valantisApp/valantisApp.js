@@ -1,7 +1,25 @@
 import md5 from 'md5';
-const apiUrl = 'http://api.valantis.store:40000/';
+
+let apiUrl = ''; // Для хранения URL API
+
+// Функция для получения URL API с сервера
+const fetchApiUrl = async () => {
+  try {
+    const response = await fetch('/api-url');
+    if (!response.ok) {
+      throw new Error(`Failed to fetch API URL: ${response.status} ${response.statusText}`);
+    }
+    const data = await response.json();
+    apiUrl = data.apiUrl; // Получаем URL API от сервера
+  } catch (error) {
+    console.error('Error fetching API URL:', error);
+  }
+};
+
+fetchApiUrl(); // Вызываем функцию для получения URL API
+
 const apiPassword = 'Valantis';
-const retryTime = 1000; // время после которого будет повтор получения данных
+const retryTime = 1000; // Время после которого будет повтор получения данных
 
 export const getDataFromApi = async (action, params, retryCount = 0) => {
     const timestamp = new Date().toISOString().split('T')[0].replace(/-/g, '');
