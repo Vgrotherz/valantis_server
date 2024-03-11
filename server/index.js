@@ -1,15 +1,11 @@
 const path = require('path');
 const express = require('express');
+const cors = require('cors'); // Import the cors middleware
 
 const app = express();
 
 // Middleware для обработки CORS
-app.use((req, res, next) => {
-  res.setHeader('Access-Control-Allow-Origin', 'https://valantis-client.vercel.app');
-  res.setHeader('Access-Control-Allow-Methods', 'GET, POST, PUT, DELETE');
-  res.setHeader('Access-Control-Allow-Headers', 'Content-Type, Authorization');
-  next();
-});
+app.use(cors()); // Enable CORS for all routes
 
 // Serve static files from the appropriate directory based on environment
 if (process.env.NODE_ENV === 'production') {
@@ -19,12 +15,7 @@ if (process.env.NODE_ENV === 'production') {
 }
 
 // Добавляем обработчик для OPTIONS запросов
-app.options('*', (req, res) => {
-  res.setHeader('Access-Control-Allow-Origin', 'https://valantis-client.vercel.app');
-  res.setHeader('Access-Control-Allow-Methods', 'GET, POST, PUT, DELETE');
-  res.setHeader('Access-Control-Allow-Headers', 'Content-Type, Authorization');
-  res.status(200).end();
-});
+app.options('*', cors()); // Enable pre-flight for all routes
 
 app.get('/', (req, res) => {
   if (process.env.NODE_ENV === 'production') {
